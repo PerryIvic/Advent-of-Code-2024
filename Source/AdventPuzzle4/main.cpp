@@ -2,6 +2,7 @@
 #include <functional>
 #include <vector>
 
+#include "CoordinateIterator.h"
 #include "Print.h"
 
 using Grid = std::vector<std::vector<char>>;
@@ -18,19 +19,33 @@ std::string GetWordReversed(const std::string aWord)
     return wordReversed;
 }
 
-bool HasBuiltTargetWord(const char aLetter, std::string &someOutWordsFound, const std::string aTargetWord)
+bool ContainsTargetWord(const Grid &aGrid,
+    const std::string aTargetWord,
+    const CoordinateIterator aCoordIterationData)
 {
-    const int wordIndex = someOutWordsFound.size();
-    if (aLetter == aTargetWord[wordIndex])
+    std::string lettersFound;
+    for (int it = 0; it < aTargetWord.size(); ++it)
     {
-        someOutWordsFound += aLetter;
-    }
-    else
-    {
-        someOutWordsFound = "";
+        const int x = aCoordIterationData.GetOffsettedX(it);
+        const int y = aCoordIterationData.GetOffsettedY(it);
+
+        const char letter = aGrid[y][x];
+        if (letter == aTargetWord[lettersFound.size()])
+        {
+            lettersFound += letter;
+        }
+        else
+        {
+            return false;
+        }
+
+        if (lettersFound == aTargetWord)
+        {
+            return true;
+        }
     }
 
-    return someOutWordsFound == aTargetWord;
+    return false;
 }
 
 int HorizontalSearch(const std::string aWord, const Grid &aGrid)
@@ -42,23 +57,13 @@ int HorizontalSearch(const std::string aWord, const Grid &aGrid)
         const int width = aGrid[y].size() - aWord.size();
         for (int x = 0; x < width; ++x)
         {
-            std::string wordsFound;
-            for (int it = 0; it < aWord.size(); ++it)
+            CoordinateIterator iterationData = CoordinateIterator(x, CoordinateIterator::IterationMethod::Add, y,
+                                                                  CoordinateIterator::IterationMethod::None);
+
+            if (ContainsTargetWord(aGrid, aWord, iterationData))
             {
-                const char letter = aGrid[y][x + it];
-                if (letter != aWord[wordsFound.size()])
-                {
-                    break;
-                }
-
-                if (HasBuiltTargetWord(letter, wordsFound, aWord))
-                {
-                    wordsFound = "";
-                    ++num;
-                }
+                ++num;
             }
-
-            wordsFound = "";
         }
     }
 
@@ -79,20 +84,12 @@ int VerticalSearch(const std::string aWord, const Grid &aGrid)
         const int height = aGrid.size() - aWord.size();
         for (int y = 0; y <= height; ++y)
         {
-            std::string wordsFound;
-            for (int it = 0; it < aWord.size(); ++it)
-            {
-                const char letter = aGrid[y + it][x];
-                if (letter != aWord[wordsFound.size()])
-                {
-                    break;
-                }
+            CoordinateIterator iterationData = CoordinateIterator(x, CoordinateIterator::IterationMethod::None, y,
+                                                                  CoordinateIterator::IterationMethod::Add);
 
-                if (HasBuiltTargetWord(letter, wordsFound, aWord))
-                {
-                    wordsFound = "";
-                    ++num;
-                }
+            if (ContainsTargetWord(aGrid, aWord, iterationData))
+            {
+                ++num;
             }
         }
     }
@@ -129,66 +126,32 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
         {
             const int eastBoundX = (aGrid[westBoundX].size() - 1) - westBoundX;
 
-            std::string wordsFoundSE;
-            for (int it = 0; it < aWord.size(); ++it) // South-East
+            CoordinateIterator southEastDirection = CoordinateIterator(
+                westBoundX, CoordinateIterator::IterationMethod::Add,
+                northBoundY, CoordinateIterator::IterationMethod::Add);
+
+            CoordinateIterator southWestDirection = CoordinateIterator(
+                eastBoundX, CoordinateIterator::IterationMethod::Subtract, 
+                northBoundY, CoordinateIterator::IterationMethod::Add);
+
+            CoordinateIterator northEastDirection = CoordinateIterator(
+                westBoundX, CoordinateIterator::IterationMethod::Add,
+                southBoundY, CoordinateIterator::IterationMethod::Subtract);
+
+            CoordinateIterator northWestDirection = CoordinateIterator(
+                eastBoundX, CoordinateIterator::IterationMethod::Subtract,
+                southBoundY, CoordinateIterator::IterationMethod::Subtract);
+
+            std::vector<CoordinateIterator> iterators;
+            iterators.push_back(southEastDirection);
+            iterators.push_back(southWestDirection);
+            iterators.push_back(northEastDirection);
+            iterators.push_back(northWestDirection);
+
+            for (CoordinateIterator it : iterators)
             {
-                const char letter = aGrid[northBoundY + it][westBoundX + it];
-                if (letter != aWord[wordsFoundSE.size()])
+                if (ContainsTargetWord(aGrid, aWord, it))
                 {
-                    break;
-                }
-
-                if (HasBuiltTargetWord(letter, wordsFoundSE, aWord))
-                {
-                    wordsFoundSE = "";
-                    ++num;
-                }
-            }
-
-            std::string wordsFoundSW;
-            for (int it = 0; it < aWord.size(); ++it) // South-West
-            {
-                const char letter = aGrid[northBoundY + it][eastBoundX - it];
-                if (letter != aWord[wordsFoundSW.size()])
-                {
-                    break;
-                }
-
-                if (HasBuiltTargetWord(letter, wordsFoundSW, aWord))
-                {
-                    wordsFoundSW = "";
-                    ++num;
-                }
-            }
-
-            std::string wordsFoundNE;
-            for (int it = 0; it < aWord.size(); ++it) // North-East
-            {
-                const char letter = aGrid[southBoundY - it][westBoundX + it];
-                if (letter != aWord[wordsFoundNE.size()])
-                {
-                    break;
-                }
-
-                if (HasBuiltTargetWord(letter, wordsFoundNE, aWord))
-                {
-                    wordsFoundNE = "";
-                    ++num;
-                }
-            }
-
-            std::string wordsFoundNW;
-            for (int it = 0; it < aWord.size(); ++it) // North-West
-            {
-                const char letter = aGrid[southBoundY - it][eastBoundX - it];
-                if (letter != aWord[wordsFoundNW.size()])
-                {
-                    break;
-                }
-
-                if (HasBuiltTargetWord(letter, wordsFoundNW, aWord))
-                {
-                    wordsFoundNW = "";
                     ++num;
                 }
             }
@@ -221,8 +184,8 @@ int Part1(const Grid &aGrid)
 
 int main()
 {
-    std::string fileName = "../../Inputs/puzzle_04_test_input.txt"; // temp
-    // std::string fileName = "../../Inputs/puzzle_04_input.txt";
+     std::string fileName = "../../Inputs/puzzle_04_test_input.txt"; // temp
+    //std::string fileName = "../../Inputs/puzzle_04_input.txt";
     std::ifstream file(fileName);
 
     if (!file.is_open())
