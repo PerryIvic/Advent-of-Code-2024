@@ -50,24 +50,24 @@ bool ContainsTargetWord(const Grid &aGrid,
 
 int HorizontalSearch(const std::string aWord, const Grid &aGrid)
 {
-    int num = 0;
+    int numWordsFound = 0;
 
     for (int y = 0; y < aGrid.size(); ++y)
     {
         const int width = aGrid[y].size() - aWord.size();
-        for (int x = 0; x < width; ++x)
+        for (int x = 0; x <= width; ++x)
         {
             CoordinateIterator iterationData = CoordinateIterator(x, CoordinateIterator::IterationMethod::Add, y,
                                                                   CoordinateIterator::IterationMethod::None);
 
             if (ContainsTargetWord(aGrid, aWord, iterationData))
             {
-                ++num;
+                ++numWordsFound;
             }
         }
     }
 
-    return num;
+    return numWordsFound;
 }
 
 int HorizontalReversedSearch(const std::string aWord, const Grid &aGrid)
@@ -77,7 +77,7 @@ int HorizontalReversedSearch(const std::string aWord, const Grid &aGrid)
 
 int VerticalSearch(const std::string aWord, const Grid &aGrid)
 {
-    int num = 0;
+    int numWordsFound = 0;
 
     for (int x = 0; x < aGrid.size(); ++x)
     {
@@ -89,12 +89,12 @@ int VerticalSearch(const std::string aWord, const Grid &aGrid)
 
             if (ContainsTargetWord(aGrid, aWord, iterationData))
             {
-                ++num;
+                ++numWordsFound;
             }
         }
     }
 
-    return num;
+    return numWordsFound;
 }
 
 int VerticalReversedSearch(const std::string aWord, const Grid &aGrid)
@@ -104,7 +104,7 @@ int VerticalReversedSearch(const std::string aWord, const Grid &aGrid)
 
 int DiagonalSearch(const std::string aWord, const Grid &aGrid)
 {
-    int num = 0;
+    int numWordsFound = 0;
 
     const int height = aGrid.size() - aWord.size();
     if (height < 0)
@@ -152,13 +152,13 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
             {
                 if (ContainsTargetWord(aGrid, aWord, it))
                 {
-                    ++num;
+                    ++numWordsFound;
                 }
             }
         }
     }
 
-    return num;
+    return numWordsFound;
 }
 
 int Part1(const Grid &aGrid)
@@ -184,8 +184,8 @@ int Part1(const Grid &aGrid)
 
 int main()
 {
-     std::string fileName = "../../Inputs/puzzle_04_test_input.txt"; // temp
-    //std::string fileName = "../../Inputs/puzzle_04_input.txt";
+    //std::string fileName = "../../Inputs/puzzle_04_test_input.txt"; // temp
+    std::string fileName = "../../Inputs/puzzle_04_input.txt";
     std::ifstream file(fileName);
 
     if (!file.is_open())
