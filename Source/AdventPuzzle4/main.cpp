@@ -177,27 +177,28 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
         {
             const int eastBoundX = (aGrid[westBoundX].size() - 1) - westBoundX;
 
-            CoordinateIterator southEastDirection = CoordinateIterator(
+            const CoordinateIterator southEastDirection = CoordinateIterator(
                 westBoundX, CoordinateIterator::IterationMethod::Add,
                 northBoundY, CoordinateIterator::IterationMethod::Add);
 
-            CoordinateIterator southWestDirection = CoordinateIterator(
+            const CoordinateIterator southWestDirection = CoordinateIterator(
                 eastBoundX, CoordinateIterator::IterationMethod::Subtract, 
                 northBoundY, CoordinateIterator::IterationMethod::Add);
 
-            CoordinateIterator northEastDirection = CoordinateIterator(
+            const CoordinateIterator northEastDirection = CoordinateIterator(
                 westBoundX, CoordinateIterator::IterationMethod::Add,
                 southBoundY, CoordinateIterator::IterationMethod::Subtract);
 
-            CoordinateIterator northWestDirection = CoordinateIterator(
+            const CoordinateIterator northWestDirection = CoordinateIterator(
                 eastBoundX, CoordinateIterator::IterationMethod::Subtract,
                 southBoundY, CoordinateIterator::IterationMethod::Subtract);
 
-            std::vector<CoordinateIterator> coordIterations;
-            coordIterations.push_back(southEastDirection);
-            coordIterations.push_back(southWestDirection);
-            coordIterations.push_back(northEastDirection);
-            coordIterations.push_back(northWestDirection);
+            const std::array<CoordinateIterator, 4> coordIterations = { 
+                southEastDirection, 
+                southWestDirection,
+                northEastDirection,
+                northWestDirection,
+            };
 
             for (CoordinateIterator it : coordIterations)
             {
