@@ -167,6 +167,8 @@ int main()
         input += inputLine;
     }
 
+    file.close();
+
     Part1Parse(input);
     Debug::Print("");
     Part2Regex(input);

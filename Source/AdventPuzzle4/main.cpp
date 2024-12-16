@@ -142,13 +142,13 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
                 eastBoundX, CoordinateIterator::IterationMethod::Subtract,
                 southBoundY, CoordinateIterator::IterationMethod::Subtract);
 
-            std::vector<CoordinateIterator> iterators;
-            iterators.push_back(southEastDirection);
-            iterators.push_back(southWestDirection);
-            iterators.push_back(northEastDirection);
-            iterators.push_back(northWestDirection);
+            std::vector<CoordinateIterator> coordIterations;
+            coordIterations.push_back(southEastDirection);
+            coordIterations.push_back(southWestDirection);
+            coordIterations.push_back(northEastDirection);
+            coordIterations.push_back(northWestDirection);
 
-            for (CoordinateIterator it : iterators)
+            for (CoordinateIterator it : coordIterations)
             {
                 if (ContainsTargetWord(aGrid, aWord, it))
                 {
@@ -200,6 +200,8 @@ int main()
         std::vector<char> row(inputLine.begin(), inputLine.end());
         grid.push_back(row);
     }
+
+    file.close();
 
     if (grid.empty())
     {

@@ -45,6 +45,8 @@ void Part1()
         line = "";
     }
 
+    file.close();
+
     int totalDistance = 0;
     while (!leftList.empty() && !rightList.empty())
     {
@@ -100,6 +102,8 @@ void Part2()
 
         line = "";
     }
+
+    file.close();
 
     int similarityScore = 0;
     for (int leftNum : leftList)

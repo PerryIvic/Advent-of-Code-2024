@@ -52,6 +52,8 @@ int main()
         line = "";
     }
 
+    file.close();
+
     int numSafeLevels = 0;
     for (auto &level : reports)
     {
