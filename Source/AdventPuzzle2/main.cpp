@@ -8,12 +8,12 @@
 
 int main()
 {
-    std::string fileName = "../../Inputs/puzzle_02_input.txt";
-    std::ifstream file(fileName);
+    std::string filePath = "../../Inputs/puzzle_02_input.txt";
+    std::ifstream file(filePath);
 
     if (!file.is_open())
     {
-        Debug::Print("failed to open " + fileName);
+        Debug::Print("failed to open " + filePath);
     }
 
     std::vector<Report> reports;

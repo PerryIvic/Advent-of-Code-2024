@@ -6,12 +6,12 @@
 
 void Part1()
 {
-    std::string fileName = "../../Inputs/puzzle_01_input.txt";
-    std::ifstream file(fileName);
+    std::string filePath = "../../Inputs/puzzle_01_input.txt";
+    std::ifstream file(filePath);
 
     if (!file.is_open())
     {
-        Debug::Print("failed to open " + fileName);
+        Debug::Print("failed to open " + filePath);
         return;
     }
 
@@ -64,12 +64,12 @@ void Part1()
 
 void Part2()
 {
-    std::string fileName = "../../Inputs/puzzle_01_input.txt";
-    std::ifstream file(fileName);
+    std::string filePath = "../../Inputs/puzzle_01_input.txt";
+    std::ifstream file(filePath);
 
     if (!file.is_open())
     {
-        Debug::Print("failed to open " + fileName);
+        Debug::Print("failed to open " + filePath);
         return;
     }
 

@@ -8,6 +8,30 @@
 using Grid = std::vector<std::vector<char>>;
 using Pattern = std::function<int(const std::string, const Grid &)>;
 
+void Part1ReadFile(Grid& aGrid, const std::string aFilePath)
+{
+    std::ifstream file(aFilePath);
+
+    if (!file.is_open())
+    {
+        Debug::Print("failed to open " + aFilePath);
+    }
+
+    std::string inputLine = "";
+    while (getline(file, inputLine))
+    {
+        std::vector<char> row(inputLine.begin(), inputLine.end());
+        aGrid.push_back(row);
+    }
+
+    file.close();
+
+    if (aGrid.empty())
+    {
+        Debug::Print("Grid size is empty!");
+    }
+}
+
 std::string GetWordReversed(const std::string aWord)
 {
     std::string wordReversed;
@@ -161,8 +185,14 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
     return numWordsFound;
 }
 
-int Part1(const Grid &aGrid)
+int Part1()
 {
+    //std::string filePath = "../../Inputs/puzzle_04_test_input.txt"; // temp
+    std::string filePath = "../../Inputs/puzzle_04_input.txt";
+    
+    Grid grid;
+    Part1ReadFile(grid, filePath);
+
     const std::string targetWord = "XMAS";
 
     std::vector<Pattern> searchPatterns;
@@ -176,7 +206,7 @@ int Part1(const Grid &aGrid)
     int result = 0;
     for (Pattern pattern : searchPatterns)
     {
-        result += pattern(targetWord, aGrid);
+        result += pattern(targetWord, grid);
     }
 
     return result;
@@ -184,32 +214,7 @@ int Part1(const Grid &aGrid)
 
 int main()
 {
-    //std::string fileName = "../../Inputs/puzzle_04_test_input.txt"; // temp
-    std::string fileName = "../../Inputs/puzzle_04_input.txt";
-    std::ifstream file(fileName);
-
-    if (!file.is_open())
-    {
-        Debug::Print("failed to open " + fileName);
-    }
-
-    Grid grid;
-    std::string inputLine = "";
-    while (getline(file, inputLine))
-    {
-        std::vector<char> row(inputLine.begin(), inputLine.end());
-        grid.push_back(row);
-    }
-
-    file.close();
-
-    if (grid.empty())
-    {
-        Debug::Print("Grid size is empty!");
-        return 0;
-    }
-
-    const int result = Part1(grid);
+    const int result = Part1();
     Debug::PrintInt(result);
 
     return 0;

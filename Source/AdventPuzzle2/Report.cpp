@@ -67,17 +67,22 @@ bool Report::AreAllLevelsSafe(const bool shouldUseProblemDampener)
     {
         if (!AreLevelsSafe(myLevels))
         {
+            // Part 2 Start
+            std::vector<int> dampenedLevels;
             int iterations = 0;
             while (iterations < myLevels.size())
             {
-                std::vector<int> dampenedLevels = myLevels;
+                dampenedLevels = myLevels;
                 dampenedLevels.erase(dampenedLevels.begin() + iterations);
                 if (AreLevelsSafe(dampenedLevels))
                 {
                     return true;
                 }
+
+                dampenedLevels.clear();
                 ++iterations;
             }
+            // Part 2 End
 
             return false;
         }

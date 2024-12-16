@@ -152,12 +152,12 @@ void Part2Regex(const std::string &anInput)
 
 int main()
 {
-    std::string fileName = "../../Inputs/puzzle_03_input.txt";
-    std::ifstream file(fileName);
+    std::string filePath = "../../Inputs/puzzle_03_input.txt";
+    std::ifstream file(filePath);
 
     if (!file.is_open())
     {
-        Debug::Print("failed to open " + fileName);
+        Debug::Print("failed to open " + filePath);
     }
 
     std::string input;
