@@ -140,7 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Report.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Report.h" />
