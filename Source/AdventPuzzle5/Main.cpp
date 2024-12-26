@@ -40,6 +40,8 @@ void ReadRules(Rules& outRules, const std::string aPath)
 		outRules[key].push_back(std::stoi(num));
 
 	}
+
+	file.close();
 }
 
 void ReadUpdates(Updates& outUpdates, const std::string aPath)
@@ -73,6 +75,8 @@ void ReadUpdates(Updates& outUpdates, const std::string aPath)
 		outUpdates.push_back(update);
 		update.clear();
 	}
+
+	file.close();
 }
 
 void GetActiveRulesForUpdate(Rules& outActiveRules, const Rules& someRules, const VectorInt& anUpdate)
