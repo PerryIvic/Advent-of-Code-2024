@@ -13,5 +13,8 @@
     <ClInclude Include="FileLoader.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="Vector2.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
