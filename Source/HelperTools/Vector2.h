@@ -47,4 +47,15 @@ namespace Math
 		aLhs.myX -= aRhs.myX;
 		aLhs.myY -= aRhs.myY;
 	}
+
+	bool operator==(const Vector2& aLhs, const Vector2& aRhs)
+	{
+		if (aLhs.myX == aRhs.myX &&
+			aLhs.myY == aRhs.myY)
+		{
+			return true;
+		}
+
+		return false;
+	}
 }
