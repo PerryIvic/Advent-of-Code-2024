@@ -7,8 +7,8 @@
 
 struct Equation
 {
-	int mySolution;
-	std::vector<int> myVariables;
+	int64_t mySolution;
+	std::vector<int64_t> myVariables;
 };
 
 enum class Operator
@@ -39,19 +39,19 @@ void ReadFile(std::vector<Equation>& outEquations, const std::string aPath)
 			}
 			else if (c == ':')
 			{
-				eq.mySolution = std::stoi(digit);
+				eq.mySolution = std::stoll(digit);
 				digit.clear();
 			}
 			else if (c == ' ' && !digit.empty())
 			{
-				eq.myVariables.push_back(std::stoi(digit));
+				eq.myVariables.push_back(std::stoll(digit));
 				digit.clear();
 			}
 		}
 
 		if (!digit.empty())
 		{
-			eq.myVariables.push_back(std::stoi(digit));
+			eq.myVariables.push_back(std::stoll(digit));
 		}
 
 		outEquations.push_back(eq);
@@ -65,64 +65,96 @@ void ReadFile(std::vector<Equation>& outEquations, const std::string aPath)
 	}
 }
 
-int CalculateSolution(const std::vector<int>& someVariables, const std::vector<int>& someOperators)
+int64_t CalculateSolution(std::vector<int64_t> someVariables, const std::vector<int64_t>& someOperators)
 {
-	int sum = 0;
+	int64_t sum = 0;
 	for (int varIndex = 0; varIndex < someVariables.size() - 1; ++varIndex)
 	{
-		const int firstNum = someVariables[varIndex];
-		const int secondNum = someVariables[varIndex];
+		const int64_t firstNum = someVariables[varIndex];
+		const int64_t secondNum = someVariables[varIndex + 1];
 
 		const Operator op = static_cast<Operator>(someOperators[varIndex]);
 		switch (op)
 		{
 		case Operator::Add:
 		{
-			sum += firstNum + secondNum;
+			someVariables[varIndex + 1] = firstNum + secondNum;
 			break;
 		}
 		case Operator::Multiply:
 		{
-			sum += firstNum * secondNum;
+			someVariables[varIndex + 1] = firstNum * secondNum;
 			break;
 		}
 		}
 	}
 
-	return sum;
+	return someVariables[someVariables.size() - 1];
 }
 
-void FindAllOperatorCombinations(std::vector<std::vector<int>>& outAllCombinations, const std::vector<Operator>& someActiveOperators, const int aVariableAmount)
+void FindAllOperatorCombinations(std::vector<std::vector<int64_t>>& outAllCombinations, const std::vector<Operator>& someActiveOperators, const int aVariableAmount)
 {
-	const int varPairAmount = aVariableAmount - 1;
-	const int maxOpCombinations = std::pow(someActiveOperators.size(), varPairAmount);
+	const int pairAmount = aVariableAmount - 1;
+	const int maxOpCombinations = std::pow(someActiveOperators.size(), pairAmount);
+	const int defaultOp = static_cast<int>(Operator::Add);
+	const int maxOp = static_cast<int>(Operator::Multiply);
 
-	const int baseOperator = static_cast<int>(someActiveOperators[0]);
-	std::vector<int> opCombination;
-	for (int i = 0; i < varPairAmount; ++i)
+	std::vector<int64_t> combination;
+	for (int i = 0; i < pairAmount; ++i)
 	{
-		opCombination.push_back(baseOperator);
+		combination.push_back(defaultOp);
 	}
 
-	outAllCombinations.push_back(opCombination);
-
-	for ()
+	const int start = 0;
+	int it = 0;
+	while(it < maxOpCombinations)
 	{
+		outAllCombinations.push_back(combination);
 
+		int64_t& op = combination[start];
+		if (op < maxOp)
+		{
+			++op;
+		}
+		else
+		{
+			int nextIndex = start + 1;
+			bool hasPushed = false;
+			while (!hasPushed && nextIndex < combination.size())
+			{
+				int64_t& next = combination[nextIndex];
+				if (next < maxOp)
+				{
+					for (int r = 0; r < nextIndex; ++r)
+					{
+						combination[r] = defaultOp;
+					}
+
+					++next;
+					hasPushed = true;
+				}
+				else
+				{
+					++nextIndex;
+				}
+			}
+		}
+
+		++it;
 	}
 }
 
-int FindPotentialSolutions(const std::vector<Equation>& someEquations, const std::vector<Operator>& someActiveOperators)
+int64_t FindSolutions(const std::vector<Equation>& someEquations, const std::vector<Operator>& someActiveOperators)
 {
-	int result = 0;
+	int64_t result = 0;
 	for (const Equation eq : someEquations)
 	{
-		std::vector<std::vector<int>> allOpCombinations;
+		std::vector<std::vector<int64_t>> allOpCombinations;
 		FindAllOperatorCombinations(allOpCombinations, someActiveOperators, eq.myVariables.size());
 
-		for(const std::vector<int>& opCombination : allOpCombinations)
+		for(const std::vector<int64_t>& opCombination : allOpCombinations)
 		{
-			int sum = CalculateSolution(eq.myVariables, opCombination);
+			const int64_t sum = CalculateSolution(eq.myVariables, opCombination);
 
 			if (sum == eq.mySolution)
 			{
@@ -135,7 +167,7 @@ int FindPotentialSolutions(const std::vector<Equation>& someEquations, const std
 	return result;
 }
 
-int Part1(const std::string filePath)
+int64_t Part1(const std::string filePath)
 {
 	std::vector<Equation> equations;
 	ReadFile(equations, filePath);
@@ -144,22 +176,17 @@ int Part1(const std::string filePath)
 	operators.push_back(Operator::Add);
 	operators.push_back(Operator::Multiply);
 
-	return FindPotentialSolutions(equations, operators);
+	return FindSolutions(equations, operators);
 }
 
 int main()
 {
-	//const std::string filePath = "../../Inputs/puzzle_07_input.txt";
-	const std::string filePath = "../../Inputs/puzzle_07_input_test.txt";
+	const std::string filePath = "../../Inputs/puzzle_07_input.txt";
+	//const std::string filePath = "../../Inputs/puzzle_07_input_test.txt";
 
-	//for (int i = 0; i < 10; ++i)
-	//{
-	//	const int currentIndex = i / 2;
-	//	Debug::PrintInt(currentIndex);
-	//}
-
-
-	const int resultPart1 = Part1(filePath);
+	const int64_t resultPart1 = Part1(filePath);
+	
+	Debug::Print(std::to_string(resultPart1));
 
 	return 0;
 }
