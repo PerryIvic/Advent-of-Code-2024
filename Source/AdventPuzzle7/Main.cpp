@@ -14,7 +14,8 @@ struct Equation
 enum class Operator
 {
 	Add = 0,
-	Multiply
+	Multiply,
+	Combine
 };
 
 void ReadFile(std::vector<Equation>& outEquations, const std::string aPath)
@@ -65,7 +66,7 @@ void ReadFile(std::vector<Equation>& outEquations, const std::string aPath)
 	}
 }
 
-int64_t CalculateSolution(std::vector<int64_t> someVariables, const std::vector<int64_t>& someOperators)
+int64_t CalculateSolution(std::vector<int64_t> someVariables, const std::vector<int64_t>& opCombination)
 {
 	int64_t sum = 0;
 	for (int varIndex = 0; varIndex < someVariables.size() - 1; ++varIndex)
@@ -73,7 +74,7 @@ int64_t CalculateSolution(std::vector<int64_t> someVariables, const std::vector<
 		const int64_t firstNum = someVariables[varIndex];
 		const int64_t secondNum = someVariables[varIndex + 1];
 
-		const Operator op = static_cast<Operator>(someOperators[varIndex]);
+		const Operator op = static_cast<Operator>(opCombination[varIndex]);
 		switch (op)
 		{
 		case Operator::Add:
@@ -84,6 +85,12 @@ int64_t CalculateSolution(std::vector<int64_t> someVariables, const std::vector<
 		case Operator::Multiply:
 		{
 			someVariables[varIndex + 1] = firstNum * secondNum;
+			break;
+		}
+		case Operator::Combine:
+		{
+			const std::string combination = std::to_string(firstNum) + std::to_string(secondNum);
+			someVariables[varIndex + 1] = std::stoll(combination);
 			break;
 		}
 		}
@@ -97,7 +104,7 @@ void FindAllOperatorCombinations(std::vector<std::vector<int64_t>>& outAllCombin
 	const int pairAmount = aVariableAmount - 1;
 	const int maxOpCombinations = std::pow(someActiveOperators.size(), pairAmount);
 	const int defaultOp = static_cast<int>(Operator::Add);
-	const int maxOp = static_cast<int>(Operator::Multiply);
+	const int maxOp = static_cast<int>(someActiveOperators[someActiveOperators.size() - 1]);
 
 	std::vector<int64_t> combination;
 	for (int i = 0; i < pairAmount; ++i)
@@ -179,14 +186,30 @@ int64_t Part1(const std::string filePath)
 	return FindSolutions(equations, operators);
 }
 
+int64_t Part2(const std::string filePath)
+{
+	std::vector<Equation> equations;
+	ReadFile(equations, filePath);
+
+	std::vector<Operator> operators;
+	operators.push_back(Operator::Add);
+	operators.push_back(Operator::Multiply);
+	operators.push_back(Operator::Combine);
+
+	return FindSolutions(equations, operators);
+}
+
 int main()
 {
 	const std::string filePath = "../../Inputs/puzzle_07_input.txt";
 	//const std::string filePath = "../../Inputs/puzzle_07_input_test.txt";
 
 	const int64_t resultPart1 = Part1(filePath);
-	
 	Debug::Print(std::to_string(resultPart1));
+
+	// Depending on input size, this part may take a couple of minutes to execute due to the amount of string/long long conversions.
+	const int64_t resultPart2 = Part2(filePath); 
+	Debug::Print(std::to_string(resultPart2));
 
 	return 0;
 }
