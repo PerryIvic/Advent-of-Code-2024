@@ -1,0 +1,7 @@
+# Format Style Options - Created with Clang Power Tools
+---
+BasedOnStyle: Microsoft
+IndentCaseBlocks: true
+IndentCaseLabels: true
+PointerAlignment: Left
+...
