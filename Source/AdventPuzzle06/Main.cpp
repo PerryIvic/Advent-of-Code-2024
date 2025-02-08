@@ -1,4 +1,3 @@
-#include "Vector2.h"
 #include <algorithm>
 #include <fstream>
 #include <string>
@@ -6,6 +5,7 @@
 #include <vector>
 
 #include "Print.h"
+#include "Vector2.h"
 
 using Map = std::vector<std::vector<char>>;
 

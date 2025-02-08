@@ -208,8 +208,8 @@ int main()
     const int64_t resultPart1 = Part1(filePath);
     Debug::Print(std::to_string(resultPart1));
 
-    // Depending on input size, this part may take a couple of minutes to execute due to the amount of string/long long
-    // conversions.
+    // Depending on input size, this part may take a couple of minutes to execute
+    // due to the amount of string/long long conversions.
     const int64_t resultPart2 = Part2(filePath);
     Debug::Print(std::to_string(resultPart2));
 

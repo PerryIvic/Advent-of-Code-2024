@@ -19,11 +19,12 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <VCProjectVersion>16.0</VCProjectVersion>
+    <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{94ef2450-846f-46c7-9218-3d7926ea4f5d}</ProjectGuid>
-    <RootNamespace>AdventPuzzle1</RootNamespace>
+    <ProjectGuid>{0a1e272d-3ed6-4bec-924a-a5b4c06f9d8c}</ProjectGuid>
+    <RootNamespace>AdventPuzzle6</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>AdventPuzzle06</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">

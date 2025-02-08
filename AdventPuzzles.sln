@@ -3,23 +3,25 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.6.33723.286
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle1", "Source\AdventPuzzle1\AdventPuzzle1.vcxproj", "{94EF2450-846F-46C7-9218-3D7926EA4F5D}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle2", "Source\AdventPuzzle2\AdventPuzzle2.vcxproj", "{3E7A9CA9-A443-4A34-B61B-6852D2D3891A}"
-EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle3", "Source\AdventPuzzle3\AdventPuzzle3.vcxproj", "{20AE94FE-414E-493E-A828-F557CBB26BC9}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "HelperTools", "Source\HelperTools\HelperTools.vcxproj", "{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle4", "Source\AdventPuzzle4\AdventPuzzle4.vcxproj", "{D47228FA-187B-41D4-9A1F-D15894403363}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle01", "Source\AdventPuzzle01\AdventPuzzle1.vcxproj", "{94EF2450-846F-46C7-9218-3D7926EA4F5D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle5", "Source\AdventPuzzle5\AdventPuzzle5.vcxproj", "{E7773D41-A843-452E-AF0D-9FFBCE346DB4}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle02", "Source\AdventPuzzle02\AdventPuzzle2.vcxproj", "{3E7A9CA9-A443-4A34-B61B-6852D2D3891A}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle6", "Source\AdventPuzzle6\AdventPuzzle6.vcxproj", "{0A1E272D-3ED6-4BEC-924A-A5B4C06F9D8C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle03", "Source\AdventPuzzle03\AdventPuzzle3.vcxproj", "{20AE94FE-414E-493E-A828-F557CBB26BC9}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle7", "Source\AdventPuzzle7\AdventPuzzle7.vcxproj", "{FEDE4990-D0BF-4C07-BCB9-DA132CCBAA60}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle04", "Source\AdventPuzzle04\AdventPuzzle4.vcxproj", "{D47228FA-187B-41D4-9A1F-D15894403363}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle8", "Source\AdventPuzzle8\AdventPuzzle8.vcxproj", "{070AA827-A5FD-4A5A-A6B5-E779F64990E2}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle05", "Source\AdventPuzzle05\AdventPuzzle5.vcxproj", "{E7773D41-A843-452E-AF0D-9FFBCE346DB4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle06", "Source\AdventPuzzle06\AdventPuzzle6.vcxproj", "{0A1E272D-3ED6-4BEC-924A-A5B4C06F9D8C}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle07", "Source\AdventPuzzle07\AdventPuzzle7.vcxproj", "{FEDE4990-D0BF-4C07-BCB9-DA132CCBAA60}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle08", "Source\AdventPuzzle08\AdventPuzzle8.vcxproj", "{070AA827-A5FD-4A5A-A6B5-E779F64990E2}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AdventPuzzle09", "Source\AdventPuzzle09\AdventPuzzle9.vcxproj", "{7994CFA1-A1C7-44BB-AC40-C4850485A557}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,14 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x64.ActiveCfg = Debug|x64
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x64.Build.0 = Debug|x64
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x86.ActiveCfg = Debug|Win32
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x86.Build.0 = Debug|Win32
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x64.ActiveCfg = Release|x64
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x64.Build.0 = Release|x64
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x86.ActiveCfg = Release|Win32
+		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x86.Build.0 = Release|Win32
 		{94EF2450-846F-46C7-9218-3D7926EA4F5D}.Debug|x64.ActiveCfg = Debug|x64
 		{94EF2450-846F-46C7-9218-3D7926EA4F5D}.Debug|x64.Build.0 = Debug|x64
 		{94EF2450-846F-46C7-9218-3D7926EA4F5D}.Debug|x86.ActiveCfg = Debug|Win32
@@ -53,14 +63,6 @@ Global
 		{20AE94FE-414E-493E-A828-F557CBB26BC9}.Release|x64.Build.0 = Release|x64
 		{20AE94FE-414E-493E-A828-F557CBB26BC9}.Release|x86.ActiveCfg = Release|Win32
 		{20AE94FE-414E-493E-A828-F557CBB26BC9}.Release|x86.Build.0 = Release|Win32
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x64.ActiveCfg = Debug|x64
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x64.Build.0 = Debug|x64
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x86.ActiveCfg = Debug|Win32
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Debug|x86.Build.0 = Debug|Win32
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x64.ActiveCfg = Release|x64
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x64.Build.0 = Release|x64
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x86.ActiveCfg = Release|Win32
-		{17AE4A3E-3815-429C-AE66-37BEA57BDE7F}.Release|x86.Build.0 = Release|Win32
 		{D47228FA-187B-41D4-9A1F-D15894403363}.Debug|x64.ActiveCfg = Debug|x64
 		{D47228FA-187B-41D4-9A1F-D15894403363}.Debug|x64.Build.0 = Debug|x64
 		{D47228FA-187B-41D4-9A1F-D15894403363}.Debug|x86.ActiveCfg = Debug|Win32
@@ -101,6 +103,14 @@ Global
 		{070AA827-A5FD-4A5A-A6B5-E779F64990E2}.Release|x64.Build.0 = Release|x64
 		{070AA827-A5FD-4A5A-A6B5-E779F64990E2}.Release|x86.ActiveCfg = Release|Win32
 		{070AA827-A5FD-4A5A-A6B5-E779F64990E2}.Release|x86.Build.0 = Release|Win32
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Debug|x64.ActiveCfg = Debug|x64
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Debug|x64.Build.0 = Debug|x64
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Debug|x86.ActiveCfg = Debug|Win32
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Debug|x86.Build.0 = Debug|Win32
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Release|x64.ActiveCfg = Release|x64
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Release|x64.Build.0 = Release|x64
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Release|x86.ActiveCfg = Release|Win32
+		{7994CFA1-A1C7-44BB-AC40-C4850485A557}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
