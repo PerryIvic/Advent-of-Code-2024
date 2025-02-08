@@ -5,15 +5,15 @@
 #include <utility>
 #include <vector>
 
-struct Tile
+struct Node
 {
-    Tile() : myID('?'), myHasAntiNode(false) {};
+    Node() : myFrequency('?'), myHasAntiNode(false) {};
 
-    char myID;
+    char myFrequency;
     bool myHasAntiNode;
 };
 
-using Grid = std::vector<std::vector<Tile>>;
+using Grid = std::vector<std::vector<Node>>;
 
 void PrintGrid(const Grid& aGrid)
 {
@@ -21,7 +21,7 @@ void PrintGrid(const Grid& aGrid)
     {
         for (uint32_t x = 0; x < aGrid[y].size(); ++x)
         {
-            std::cout << aGrid[y][x].myID;
+            std::cout << aGrid[y][x].myFrequency;
         }
         std::cout << std::endl;
     }
@@ -41,11 +41,11 @@ void ReadFile(Grid& outGrid, const std::string aPath)
     std::string line;
     while (getline(file, line))
     {
-        Tile tile;
-        std::vector<Tile> row;
+        Node tile;
+        std::vector<Node> row;
         for (char c : line)
         {
-            tile.myID = c;
+            tile.myFrequency = c;
             row.push_back(tile);
         }
 
@@ -78,50 +78,57 @@ bool IsSatelite(const char anId)
     return anId != '.' && anId != '#';
 }
 
-void RegisterAntiNodes(Grid& aGrid)
+void RegisterAntiNodes(Grid& aGrid, const bool aShouldUseResonantHarmonics)
 {
     for (int innerY = 0; innerY < aGrid.size(); ++innerY)
     {
         for (int innerX = 0; innerX < aGrid[innerY].size(); ++innerX)
         {
-            const Tile firstTile = aGrid[innerY][innerX];
-            if (!IsSatelite(firstTile.myID))
+            const Node firstSatelite = aGrid[innerY][innerX];
+            if (!IsSatelite(firstSatelite.myFrequency))
                 continue;
 
             for (int outerY = 0; outerY < aGrid.size(); ++outerY)
             {
                 for (int outerX = 0; outerX < aGrid[outerY].size(); ++outerX)
                 {
-                    const Tile secondTile = aGrid[outerY][outerX];
+                    const Node secondSatelite = aGrid[outerY][outerX];
 
                     const Math::Vector2 innerPos = Math::Vector2(innerX, innerY);
                     const Math::Vector2 outerPos = Math::Vector2(outerX, outerY);
-                    if (!IsSatelite(secondTile.myID) || firstTile.myID != secondTile.myID || innerPos == outerPos)
+                    if (!IsSatelite(secondSatelite.myFrequency) ||
+                        firstSatelite.myFrequency != secondSatelite.myFrequency || innerPos == outerPos)
                         continue;
 
                     const Math::Vector2 diff = (outerPos - innerPos);
+                    Math::Vector2 antiNodePos = outerPos;
 
-                    const Math::Vector2 antiNodePosInner = innerPos - diff;
-                    const Math::Vector2 antiNodePosOuter = outerPos + diff;
-
-                    if (IsWithinGrid(aGrid, antiNodePosInner))
+                    if (aShouldUseResonantHarmonics)
                     {
-                        Tile& n1 = aGrid[antiNodePosInner.myY][antiNodePosInner.myX];
-                        if (!IsSatelite(n1.myID))
+                        while (IsWithinGrid(aGrid, antiNodePos))
                         {
-                            n1.myID = '#';
+                            Node& antiNode = aGrid[antiNodePos.myY][antiNodePos.myX];
+                            if (!IsSatelite(antiNode.myFrequency))
+                            {
+                                antiNode.myFrequency = '#';
+                            }
+                            antiNode.myHasAntiNode = true;
+
+                            antiNodePos += diff;
                         }
-                        n1.myHasAntiNode = true;
                     }
-
-                    if (IsWithinGrid(aGrid, antiNodePosOuter))
+                    else
                     {
-                        Tile& n2 = aGrid[antiNodePosOuter.myY][antiNodePosOuter.myX];
-                        if (!IsSatelite(n2.myID))
+                        antiNodePos += diff;
+                        if (IsWithinGrid(aGrid, antiNodePos))
                         {
-                            n2.myID = '#';
+                            Node& antiNode = aGrid[antiNodePos.myY][antiNodePos.myX];
+                            if (!IsSatelite(antiNode.myFrequency))
+                            {
+                                antiNode.myFrequency = '#';
+                            }
+                            antiNode.myHasAntiNode = true;
                         }
-                        n2.myHasAntiNode = true;
                     }
                 }
             }
@@ -136,7 +143,7 @@ int GetUniqueAntiNodeAmount(const Grid& aGrid)
     {
         for (int innerX = 0; innerX < aGrid[innerY].size(); ++innerX)
         {
-            const Tile firstTile = aGrid[innerY][innerX];
+            const Node firstTile = aGrid[innerY][innerX];
             if (firstTile.myHasAntiNode)
             {
                 ++antiNodeAmount;
@@ -147,12 +154,12 @@ int GetUniqueAntiNodeAmount(const Grid& aGrid)
     return antiNodeAmount;
 }
 
-int Part1(const std::string aFilePath)
+int Solution(const std::string aFilePath, const bool aShouldUseResonantHarmonics)
 {
     Grid grid;
     ReadFile(grid, aFilePath);
 
-    RegisterAntiNodes(grid);
+    RegisterAntiNodes(grid, aShouldUseResonantHarmonics);
 
     PrintGrid(grid);
 
@@ -165,9 +172,11 @@ int main()
     // const std::string filePath = "../../Inputs/puzzle_08_test_input_01.txt";
     // const std::string filePath = "../../Inputs/puzzle_08_test_input_02.txt";
 
-    const int resultPart1 = Part1(filePath);
-
+    const int resultPart1 = Solution(filePath, false);
     Debug::PrintInt(resultPart1);
+
+    const int resultPart2 = Solution(filePath, true);
+    Debug::PrintInt(resultPart2);
 
     return 0;
 }
