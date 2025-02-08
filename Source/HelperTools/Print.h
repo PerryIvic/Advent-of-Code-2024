@@ -13,4 +13,4 @@ namespace Debug
     {
         std::cout << aValue << std::endl;
     }
-}
+} // namespace Debug

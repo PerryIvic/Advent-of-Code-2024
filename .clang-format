@@ -3,5 +3,6 @@
 BasedOnStyle: Microsoft
 IndentCaseBlocks: true
 IndentCaseLabels: true
+NamespaceIndentation: All
 PointerAlignment: Left
 ...

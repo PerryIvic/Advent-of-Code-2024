@@ -55,7 +55,7 @@ int main()
     file.close();
 
     int numSafeLevels = 0;
-    for (auto &level : reports)
+    for (auto& level : reports)
     {
         if (level.AreAllLevelsSafe(true))
         {

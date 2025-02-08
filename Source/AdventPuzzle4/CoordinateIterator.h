@@ -11,10 +11,7 @@ class CoordinateIterator
     };
 
     CoordinateIterator();
-    CoordinateIterator(int anX,
-        IterationMethod aMethodX,
-        int aY,
-        IterationMethod aMethodY);
+    CoordinateIterator(int anX, IterationMethod aMethodX, int aY, IterationMethod aMethodY);
 
     int GetOffsettedX(const int anOffset) const;
     int GetOffsettedY(const int anOffset) const;

@@ -1,20 +1,12 @@
 #include "CoordinateIterator.h"
 
 CoordinateIterator::CoordinateIterator()
-    :
-    myX(0),
-    myY(0), 
-    myMethodX(IterationMethod::None), 
-    myMethodY(IterationMethod::None)
+    : myX(0), myY(0), myMethodX(IterationMethod::None), myMethodY(IterationMethod::None)
 {
 }
 
 CoordinateIterator::CoordinateIterator(int anX, IterationMethod aMethodX, int aY, IterationMethod aMethodY)
-    :
-    myX(anX), 
-    myMethodX(aMethodX), 
-    myY(aY), 
-    myMethodY(aMethodY)
+    : myX(anX), myMethodX(aMethodX), myY(aY), myMethodY(aMethodY)
 {
 }
 
@@ -32,17 +24,17 @@ int CoordinateIterator::OffsetIndex(const int aCoord, const IterationMethod aMet
 {
     switch (aMethod)
     {
-    case IterationMethod::Add: 
-    {
-        return aCoord + anOffset;
-    }
-    case IterationMethod::Subtract: 
-    {
-        return aCoord - anOffset;
-    }
-    default: 
-    {
-        return aCoord;
-    }
+        case IterationMethod::Add:
+            {
+                return aCoord + anOffset;
+            }
+        case IterationMethod::Subtract:
+            {
+                return aCoord - anOffset;
+            }
+        default:
+            {
+                return aCoord;
+            }
     }
 }

@@ -1,7 +1,7 @@
 #pragma once
+#include "Print.h"
 #include <fstream>
 #include <string>
-#include "Print.h"
 
 namespace Debug
 {
@@ -23,4 +23,4 @@ namespace Debug
 
         return output;
     }
-}
+} // namespace Debug

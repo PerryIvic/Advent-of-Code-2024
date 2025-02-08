@@ -32,7 +32,7 @@ bool Report::IsLevelSafe(const int aDifference, const LevelType aSelectedLevelTy
     return true;
 }
 
-bool Report::AreLevelsSafe(const std::vector<int> &levels)
+bool Report::AreLevelsSafe(const std::vector<int>& levels)
 {
     int previousDigit = -1;
     LevelType levelType = LevelType::Undefined;

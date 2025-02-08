@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-void Part1Parse(const std::string &anInput)
+void Part1Parse(const std::string& anInput)
 {
     std::string d1, d2, mulCheck;
     char expectedChar = ' ';
@@ -39,31 +39,34 @@ void Part1Parse(const std::string &anInput)
             {
                 switch (expectedChar)
                 {
-                case '(': {
-                    expectedChar = ',';
-                    break;
-                }
-                case ',': {
-                    expectedChar = ')';
-                    break;
-                }
-                case ')': // Calculate product
-                {
-                    const int digit1 = std::stoi(d1);
-                    const int digit2 = std::stoi(d2);
+                    case '(':
+                        {
+                            expectedChar = ',';
+                            break;
+                        }
+                    case ',':
+                        {
+                            expectedChar = ')';
+                            break;
+                        }
+                    case ')': // Calculate product
+                        {
+                            const int digit1 = std::stoi(d1);
+                            const int digit2 = std::stoi(d2);
 
-                    totalResult += digit1 * digit2;
+                            totalResult += digit1 * digit2;
 
-                    ++totalMatches;
+                            ++totalMatches;
 
-                    Reset();
+                            Reset();
 
-                    break;
-                }
-                default: {
-                    Reset();
-                    break;
-                }
+                            break;
+                        }
+                    default:
+                        {
+                            Reset();
+                            break;
+                        }
                 }
             }
             else
@@ -90,7 +93,7 @@ void Part1Parse(const std::string &anInput)
     Debug::PrintInt(totalResult);
 }
 
-void Part1Regex(const std::string &anInput)
+void Part1Regex(const std::string& anInput)
 {
     std::regex wordPattern(R"(mul\((\d+),(\d+)\))");
 
@@ -113,7 +116,7 @@ void Part1Regex(const std::string &anInput)
     Debug::PrintInt(result);
 }
 
-void Part2Regex(const std::string &anInput)
+void Part2Regex(const std::string& anInput)
 {
     std::regex wordPattern(R"((mul\((\d+),(\d+)\))|(do\(\))|(don't\(\)))");
 

@@ -1,14 +1,14 @@
+#include <algorithm>
+#include <array>
 #include <fstream>
 #include <functional>
 #include <vector>
-#include <array>
-#include <algorithm>
 
 #include "CoordinateIterator.h"
 #include "Print.h"
 
 using Grid = std::vector<std::vector<char>>;
-using Pattern = std::function<int(const std::string, const Grid &)>;
+using Pattern = std::function<int(const std::string, const Grid&)>;
 
 void ReadFilePart1(Grid& aGrid, const std::string aFilePath)
 {
@@ -68,9 +68,7 @@ std::string GetWordReversed(const std::string aWord)
     return wordReversed;
 }
 
-bool ContainsTargetWord(const Grid &aGrid,
-    const std::string aTargetWord,
-    const CoordinateIterator aCoordIterationData)
+bool ContainsTargetWord(const Grid& aGrid, const std::string aTargetWord, const CoordinateIterator aCoordIterationData)
 {
     std::string lettersFound;
     for (int it = 0; it < aTargetWord.size(); ++it)
@@ -97,7 +95,7 @@ bool ContainsTargetWord(const Grid &aGrid,
     return false;
 }
 
-int HorizontalSearch(const std::string aWord, const Grid &aGrid)
+int HorizontalSearch(const std::string aWord, const Grid& aGrid)
 {
     int numWordsFound = 0;
 
@@ -106,9 +104,8 @@ int HorizontalSearch(const std::string aWord, const Grid &aGrid)
         const int width = aGrid[y].size() - aWord.size();
         for (int x = 0; x <= width; ++x)
         {
-            CoordinateIterator iterationData = CoordinateIterator(
-                x, CoordinateIterator::IterationMethod::Add,
-                y, CoordinateIterator::IterationMethod::None);
+            CoordinateIterator iterationData = CoordinateIterator(x, CoordinateIterator::IterationMethod::Add, y,
+                                                                  CoordinateIterator::IterationMethod::None);
 
             if (ContainsTargetWord(aGrid, aWord, iterationData))
             {
@@ -120,12 +117,12 @@ int HorizontalSearch(const std::string aWord, const Grid &aGrid)
     return numWordsFound;
 }
 
-int HorizontalReversedSearch(const std::string aWord, const Grid &aGrid)
+int HorizontalReversedSearch(const std::string aWord, const Grid& aGrid)
 {
     return HorizontalSearch(GetWordReversed(aWord), aGrid);
 }
 
-int VerticalSearch(const std::string aWord, const Grid &aGrid)
+int VerticalSearch(const std::string aWord, const Grid& aGrid)
 {
     int numWordsFound = 0;
 
@@ -134,9 +131,8 @@ int VerticalSearch(const std::string aWord, const Grid &aGrid)
         const int height = aGrid.size() - aWord.size();
         for (int y = 0; y <= height; ++y)
         {
-            CoordinateIterator iterationData = CoordinateIterator(
-                x, CoordinateIterator::IterationMethod::None, 
-                y, CoordinateIterator::IterationMethod::Add);
+            CoordinateIterator iterationData = CoordinateIterator(x, CoordinateIterator::IterationMethod::None, y,
+                                                                  CoordinateIterator::IterationMethod::Add);
 
             if (ContainsTargetWord(aGrid, aWord, iterationData))
             {
@@ -148,12 +144,12 @@ int VerticalSearch(const std::string aWord, const Grid &aGrid)
     return numWordsFound;
 }
 
-int VerticalReversedSearch(const std::string aWord, const Grid &aGrid)
+int VerticalReversedSearch(const std::string aWord, const Grid& aGrid)
 {
     return VerticalSearch(GetWordReversed(aWord), aGrid);
 }
 
-int DiagonalSearch(const std::string aWord, const Grid &aGrid)
+int DiagonalSearch(const std::string aWord, const Grid& aGrid)
 {
     int numWordsFound = 0;
 
@@ -177,24 +173,24 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
         {
             const int eastBoundX = (aGrid[westBoundX].size() - 1) - westBoundX;
 
-            const CoordinateIterator southEastDirection = CoordinateIterator(
-                westBoundX, CoordinateIterator::IterationMethod::Add,
-                northBoundY, CoordinateIterator::IterationMethod::Add);
+            const CoordinateIterator southEastDirection =
+                CoordinateIterator(westBoundX, CoordinateIterator::IterationMethod::Add, northBoundY,
+                                   CoordinateIterator::IterationMethod::Add);
 
-            const CoordinateIterator southWestDirection = CoordinateIterator(
-                eastBoundX, CoordinateIterator::IterationMethod::Subtract, 
-                northBoundY, CoordinateIterator::IterationMethod::Add);
+            const CoordinateIterator southWestDirection =
+                CoordinateIterator(eastBoundX, CoordinateIterator::IterationMethod::Subtract, northBoundY,
+                                   CoordinateIterator::IterationMethod::Add);
 
-            const CoordinateIterator northEastDirection = CoordinateIterator(
-                westBoundX, CoordinateIterator::IterationMethod::Add,
-                southBoundY, CoordinateIterator::IterationMethod::Subtract);
+            const CoordinateIterator northEastDirection =
+                CoordinateIterator(westBoundX, CoordinateIterator::IterationMethod::Add, southBoundY,
+                                   CoordinateIterator::IterationMethod::Subtract);
 
-            const CoordinateIterator northWestDirection = CoordinateIterator(
-                eastBoundX, CoordinateIterator::IterationMethod::Subtract,
-                southBoundY, CoordinateIterator::IterationMethod::Subtract);
+            const CoordinateIterator northWestDirection =
+                CoordinateIterator(eastBoundX, CoordinateIterator::IterationMethod::Subtract, southBoundY,
+                                   CoordinateIterator::IterationMethod::Subtract);
 
-            const std::array<CoordinateIterator, 4> coordIterations = { 
-                southEastDirection, 
+            const std::array<CoordinateIterator, 4> coordIterations = {
+                southEastDirection,
                 southWestDirection,
                 northEastDirection,
                 northWestDirection,
@@ -215,9 +211,9 @@ int DiagonalSearch(const std::string aWord, const Grid &aGrid)
 
 int Part1()
 {
-    //std::string filePath = "../../Inputs/puzzle_04_test_input.txt"; // temp
+    // std::string filePath = "../../Inputs/puzzle_04_test_input.txt"; // temp
     std::string filePath = "../../Inputs/puzzle_04_input.txt";
-    
+
     Grid grid;
     ReadFilePart1(grid, filePath);
 
@@ -245,7 +241,7 @@ int XmasSearch(const Grid& aGrid)
     int numTotalMatchesFound = 0;
 
     const int wordSize = 3;
-    const std::array<std::string, 2> words = { "MAS" ,"SAM" };
+    const std::array<std::string, 2> words = {"MAS", "SAM"};
 
     const int height = aGrid.size() - wordSize;
     for (int northWordBound = 0; northWordBound <= height; ++northWordBound)
@@ -253,17 +249,16 @@ int XmasSearch(const Grid& aGrid)
         const int width = aGrid[northWordBound].size() - wordSize;
         for (int x = 0; x <= width; ++x)
         {
-            const int southWordBound = northWordBound + wordSize -1;
+            const int southWordBound = northWordBound + wordSize - 1;
 
             const CoordinateIterator directionSE = CoordinateIterator(
-                x, CoordinateIterator::IterationMethod::Add,
-                northWordBound, CoordinateIterator::IterationMethod::Add);
+                x, CoordinateIterator::IterationMethod::Add, northWordBound, CoordinateIterator::IterationMethod::Add);
 
-            const CoordinateIterator directionNE = CoordinateIterator(
-                x, CoordinateIterator::IterationMethod::Add,
-                southWordBound, CoordinateIterator::IterationMethod::Subtract);
+            const CoordinateIterator directionNE =
+                CoordinateIterator(x, CoordinateIterator::IterationMethod::Add, southWordBound,
+                                   CoordinateIterator::IterationMethod::Subtract);
 
-            const std::array<CoordinateIterator, 2> iterators = { directionSE, directionNE };
+            const std::array<CoordinateIterator, 2> iterators = {directionSE, directionNE};
 
             int numMatches = 0;
             for (const CoordinateIterator it : iterators)
